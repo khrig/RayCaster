@@ -1,0 +1,6 @@
+C:\Code\RayCasting\RayCasting\bin\Debug\RayCasting.exe.config
+C:\Code\RayCasting\RayCasting\obj\Debug\RayCasting.csprojResolveAssemblyReference.cache
+C:\Code\RayCasting\RayCasting\bin\Debug\RayCasting.exe
+C:\Code\RayCasting\RayCasting\bin\Debug\RayCasting.pdb
+C:\Code\RayCasting\RayCasting\obj\Debug\RayCasting.exe
+C:\Code\RayCasting\RayCasting\obj\Debug\RayCasting.pdb
