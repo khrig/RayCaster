@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BresenHamAlgorithm.cs" />
     <Compile Include="FOV.cs" />
+    <Compile Include="FovRecurse.cs" />
     <Compile Include="FovTestRunner.cs" />
     <Compile Include="GridPrinter.cs" />
     <Compile Include="NearestPositions.cs" />

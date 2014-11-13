@@ -51,6 +51,39 @@ namespace RayCasting {
             }
         }
 
+        public void SetFov3(int[,] grid, int startX, int startY, int blocked, int fovMarker)
+        {
+            // X == 4
+            // Y == 0
+
+            List<Point> points = bresenHam.Line(startY, startX, 0, 4);
+            points.Reverse();
+            SetMarker(points, grid, blocked, fovMarker);
+
+            for (int i = 0; i < 5; i++)
+            { // all vertical at bottom
+                points = bresenHam.Line(grid, startY, startX, 5, i);
+                SetMarker(points, grid, blocked, fovMarker);
+            }
+
+            for (int i = 0; i < 5; i++)
+            { // all vertical at top
+                points = bresenHam.Line(grid, startY, startX, 0, i);
+                SetMarker(points, grid, blocked, fovMarker);
+            }
+
+            for (int i = 0; i < 6; i++)
+            { // all horizontal left
+                points = bresenHam.Line(grid, startY, startX, i, 0);
+                SetMarker(points, grid, blocked, fovMarker);
+            }
+
+            for (int i = 0; i < 6; i++)
+            { // all horizontal right
+                points = bresenHam.Line(grid, startY, startX, i, 4);
+                SetMarker(points, grid, blocked, fovMarker);
+            }
+        }
 /*
         public void SetFov(int[,] grid, int startX, int startY, int blocked, int fovMarker) {
             for (int i = 0; i < 5; i++) {
