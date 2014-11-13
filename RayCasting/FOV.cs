@@ -5,18 +5,19 @@ using System.Threading.Tasks;
 
 namespace RayCasting {
     public class Fov {
-        private readonly BresenHamAlgorithm bresenHam;
+        private readonly IBresenHamAlgorithm _bresenHamAlgorithm;
 
-        public Fov() {
-            bresenHam = new BresenHamAlgorithm();
+        public Fov(IBresenHamAlgorithm bresenHamAlgorithm)
+        {
+            _bresenHamAlgorithm = bresenHamAlgorithm;
         }
 
         public void SetFov2(int[,] grid, int startX, int startY, int blocked, int fovMarker) {
             Parallel.Invoke(
-                () => CheckAgainstBorder(grid, 5, 0, 5, (i) => bresenHam.Line(startY, startX, 0, i)),
-                () => CheckAgainstBorder(grid, 5, 0, 5, (i) => bresenHam.Line(startY, startX, grid.GetUpperBound(0), i)),
-                () => CheckAgainstBorder(grid, 5, 0, 5, (i) => bresenHam.Line(startY, startX, i, 0)),
-                () => CheckAgainstBorder(grid, 5, 0, 5, (i) => bresenHam.Line(startY, startX, i, grid.GetUpperBound(1))));
+                () => CheckAgainstBorder(grid, 5, 0, 5, (i) => _bresenHamAlgorithm.Line(startY, startX, 0, i)),
+                () => CheckAgainstBorder(grid, 5, 0, 5, (i) => _bresenHamAlgorithm.Line(startY, startX, grid.GetUpperBound(0), i)),
+                () => CheckAgainstBorder(grid, 5, 0, 5, (i) => _bresenHamAlgorithm.Line(startY, startX, i, 0)),
+                () => CheckAgainstBorder(grid, 5, 0, 5, (i) => _bresenHamAlgorithm.Line(startY, startX, i, grid.GetUpperBound(1))));
 
         }
 
@@ -24,66 +25,28 @@ namespace RayCasting {
             // X == 4
             // Y == 0
 
-            List<Point> points = bresenHam.Line(startY, startX, 0, 4);
-            points.Reverse();
-            SetMarker(points, grid, blocked, fovMarker);
-
+            List<Point> points;
             for (int i = 0; i < 5; i++) { // all vertical at bottom
-                points = bresenHam.Line(startY, startX, 5, i); 
+                points = _bresenHamAlgorithm.Line(startY, startX, 5, i);
                 SetMarker(points, grid, blocked, fovMarker);
             }
 
             for (int i = 0; i < 5; i++) { // all vertical at top
-                points = bresenHam.Line(startY, startX, 0, i);
+                points = _bresenHamAlgorithm.Line(startY, startX, 0, i);
                 SetMarker(points, grid, blocked, fovMarker);
             }
 
             for (int i = 0; i < 6; i++) { // all horizontal left
-                points = bresenHam.Line(startY, startX, i, 0);
+                points = _bresenHamAlgorithm.Line(startY, startX, i, 0);
                 SetMarker(points, grid, blocked, fovMarker);
             }
             
             for (int i = 0; i < 6; i++) { // all horizontal right
-                points = bresenHam.Line(startY, startX, i, 4);
-                if (i < startX)
-                    points.Reverse();
+                points = _bresenHamAlgorithm.Line(startY, startX, i, 4);
                 SetMarker(points, grid, blocked, fovMarker);
             }
         }
 
-        public void SetFov3(int[,] grid, int startX, int startY, int blocked, int fovMarker)
-        {
-            // X == 4
-            // Y == 0
-
-            List<Point> points = bresenHam.Line(startY, startX, 0, 4);
-            points.Reverse();
-            SetMarker(points, grid, blocked, fovMarker);
-
-            for (int i = 0; i < 5; i++)
-            { // all vertical at bottom
-                points = bresenHam.Line(grid, startY, startX, 5, i);
-                SetMarker(points, grid, blocked, fovMarker);
-            }
-
-            for (int i = 0; i < 5; i++)
-            { // all vertical at top
-                points = bresenHam.Line(grid, startY, startX, 0, i);
-                SetMarker(points, grid, blocked, fovMarker);
-            }
-
-            for (int i = 0; i < 6; i++)
-            { // all horizontal left
-                points = bresenHam.Line(grid, startY, startX, i, 0);
-                SetMarker(points, grid, blocked, fovMarker);
-            }
-
-            for (int i = 0; i < 6; i++)
-            { // all horizontal right
-                points = bresenHam.Line(grid, startY, startX, i, 4);
-                SetMarker(points, grid, blocked, fovMarker);
-            }
-        }
 /*
         public void SetFov(int[,] grid, int startX, int startY, int blocked, int fovMarker) {
             for (int i = 0; i < 5; i++) {

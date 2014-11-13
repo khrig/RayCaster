@@ -8,10 +8,11 @@ namespace RayCasting
 {
     public static class FovTestRunner
     {
-        private static Fov fov = new Fov();
+        private static Fov fov = new Fov(new BresenHamAlgorithm());
+        //private static Fov fov = new Fov(new SecondBresenHam());
 
         public static void Run(int startX, int startY, int[,] grid, string name) {    
-            fov.SetFov3(grid, startX, startY, 5, 0);
+            fov.SetFov(grid, startX, startY, 5, 0);
             grid[startY, startX] = 1;
             Console.WriteLine(name);
             GridPrinter.Print(grid);

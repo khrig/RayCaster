@@ -22,14 +22,41 @@ namespace RayCasting {
             int[,] positions = positionCount.GetNearestPositions(grid, startX, startY, moveLengthUnits, ap, 5, 3);
             GridPrinter.Print(positions);
 
+            PlotTest();
 
+            FovTests();
+            Console.Read();
+        }
+
+        private static void PlotTest()
+        {
+            int startx = 2;
+            int starty = 2;
+            int[,] grid = new int[6, 5] {
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0}
+            };
+            int count = 1;
+            BresenhamRogueBasin.Line(startx,starty,0,0, (i, i1) => { 
+                grid[i, i1] = count;
+                                                             count++;
+                return true;
+            });
+            GridPrinter.Print(grid);
+        }
+
+        private static void FovTests()
+        {
             RunFovTest1();
             RunFovTest2();
             RunFovTest3();
             RunFovTest4();
             RunFovTest5();
             RunFovTest6();
-            Console.Read();
         }
 
         private static void RunFovTest1()
@@ -45,11 +72,7 @@ namespace RayCasting {
                 {1, 1, 1, 1, 1}
             };
 
-            Fov fov = new Fov();
-            fov.SetFov(grid, startX, startY, 5, 0);
-            grid[startY, startX] = 1;
-            Console.WriteLine("Test 1");
-            GridPrinter.Print(grid);
+            FovTestRunner.Run(startX, startY, grid, "Test 1");
         }
 
         private static void RunFovTest2()
@@ -65,11 +88,7 @@ namespace RayCasting {
                 {1, 1, 1, 1, 1}
             };
 
-            Fov fov = new Fov();
-            fov.SetFov(grid, startX, startY, 5, 0);
-            grid[startY, startX] = 1;
-            Console.WriteLine("Test 2");
-            GridPrinter.Print(grid);
+            FovTestRunner.Run(startX, startY, grid, "Test 2");
         }
 
         private static void RunFovTest3()
