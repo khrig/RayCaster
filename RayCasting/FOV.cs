@@ -35,7 +35,6 @@ namespace RayCasting {
 
             for (int i = 0; i < 5; i++) { // all vertical at top
                 points = bresenHam.Line(startY, startX, 0, i);
-                points.Reverse();
                 SetMarker(points, grid, blocked, fovMarker);
             }
 
@@ -89,7 +88,6 @@ namespace RayCasting {
                     break;
                 grid[p.X, p.Y] = fovMarker;
             }
-            GridPrinter.Print(grid, true);
         }
     }
 }

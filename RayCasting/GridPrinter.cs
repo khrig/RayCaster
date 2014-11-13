@@ -9,6 +9,7 @@ namespace RayCasting {
         }
 
         public static void Print(int[,] grid) {
+            Console.WriteLine();
             for (int y = 0; y < grid.GetLength(0); y++) {
                 for (int x = 0; x < grid.GetLength(1); x++) {
                     Console.Write(grid[y, x] + " ");
