@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RayCasting
 {
-    public static class BresenhamRogueBasin
+    public class BresenhamRogueBasin : IBresenHamAlgorithm
     {
         private static void Swap<T>(ref T lhs, ref T rhs)
         {
@@ -56,6 +56,49 @@ namespace RayCasting
                     err += dX;
                 }
             }
+        }
+
+        public List<Point> Line(int x0, int y0, int x1, int y1) {
+            List<Point> result = new List<Point>();
+            bool reverse = false;
+            bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
+            if (steep)
+            {
+                Swap<int>(ref x0, ref y0);
+                Swap<int>(ref x1, ref y1);
+            }
+            if (x0 > x1)
+            {
+                Swap<int>(ref x0, ref x1);
+                Swap<int>(ref y0, ref y1);
+                reverse = y1 >= y0;
+            }
+            /*
+            if (!reverse && y1 >= y0 && x0 <= x1)
+                reverse = true;
+            */
+            int dX = (x1 - x0), dY = Math.Abs(y1 - y0), err = (dX / 2), ystep = (y0 < y1 ? 1 : -1), y = y0;
+
+            for (int x = x0; x <= x1; ++x)
+            {
+                if (!(steep ? plot(y, x, result) : plot(x, y, result))) 
+                    return null;
+                err = err - dY;
+                if (err < 0)
+                {
+                    y += ystep;
+                    err += dX;
+                }
+            }
+            
+            if (reverse)
+                result.Reverse();
+            return result;
+        }
+
+        private bool plot(int x, int y, List<Point> result){
+            result.Add(new Point(x,y));
+            return true;
         }
     }
 }

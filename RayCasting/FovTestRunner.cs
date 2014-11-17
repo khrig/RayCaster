@@ -8,7 +8,7 @@ namespace RayCasting
 {
     public static class FovTestRunner
     {
-        private static Fov fov = new Fov(new BresenHamAlgorithm());
+        private static Fov fov = new Fov(new SomeOtherBresenHam());
         //private static Fov fov = new Fov(new SecondBresenHam());
 
         public static void Run(int startX, int startY, int[,] grid, string name) {    

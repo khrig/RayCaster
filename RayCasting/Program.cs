@@ -24,6 +24,8 @@ namespace RayCasting {
 
             PlotTest();
 
+            TestBresenSimple.Test();
+
             FovTests();
             Console.Read();
         }

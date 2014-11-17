@@ -26,25 +26,28 @@ namespace RayCasting {
             // Y == 0
 
             List<Point> points;
+            for (int i = 0; i < 5; i++)
+            { // all vertical at top
+                points = _bresenHamAlgorithm.Line(startY, startX, 0, i);
+                SetMarker(points, grid, blocked, fovMarker);
+            }
+            for (int i = 0; i < 6; i++)
+            { // all horizontal right
+                points = _bresenHamAlgorithm.Line(startY, startX, i, 4);
+                SetMarker(points, grid, blocked, fovMarker);
+            }
             for (int i = 0; i < 5; i++) { // all vertical at bottom
                 points = _bresenHamAlgorithm.Line(startY, startX, 5, i);
                 SetMarker(points, grid, blocked, fovMarker);
             }
 
-            for (int i = 0; i < 5; i++) { // all vertical at top
-                points = _bresenHamAlgorithm.Line(startY, startX, 0, i);
-                SetMarker(points, grid, blocked, fovMarker);
-            }
-
-            for (int i = 0; i < 6; i++) { // all horizontal left
+            for (int i = 0; i < 6; i++)
+            { // all horizontal left
                 points = _bresenHamAlgorithm.Line(startY, startX, i, 0);
                 SetMarker(points, grid, blocked, fovMarker);
             }
+
             
-            for (int i = 0; i < 6; i++) { // all horizontal right
-                points = _bresenHamAlgorithm.Line(startY, startX, i, 4);
-                SetMarker(points, grid, blocked, fovMarker);
-            }
         }
 
 /*
@@ -70,6 +73,7 @@ namespace RayCasting {
             }
         }
         */
+
         private void CheckAgainstBorder(int[,] grid, int blocked, int fovMarker, int borderSize, Func<int, List<Point>> getPoints) {
             for (int i = 0; i < borderSize; i++) {
                 List<Point> points = getPoints(i);
