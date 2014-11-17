@@ -59,6 +59,7 @@ namespace RayCasting {
             RunFovTest4();
             RunFovTest5();
             RunFovTest6();
+            RunFovTest7();
         }
 
         private static void RunFovTest1()
@@ -155,6 +156,22 @@ namespace RayCasting {
             };
 
             FovTestRunner.Run(startX, startY, grid, "Test 6");
+        }
+
+        private static void RunFovTest7()
+        {
+            int startX = 2;
+            int startY = 2;
+            int[,] grid = new int[6, 5] {
+                {1, 1, 1, 1, 1},
+                {1, 5, 1, 5, 1},
+                {1, 1, 1, 1, 1},
+                {1, 5, 1, 5, 1},
+                {1, 1, 1, 1, 1},
+                {1, 1, 5, 1, 5}
+            };
+
+            FovTestRunner.Run(startX, startY, grid, "Test 7");
         }
     }
 }
