@@ -13,7 +13,7 @@ namespace RayCasting
 
         public static void Run(int startX, int startY, int[,] grid, string name) {    
             fov.SetFov(grid, startX, startY, 5, 0);
-            grid[startY, startX] = 1;
+            grid[startY, startX] = 3;
             Console.WriteLine(name);
             GridPrinter.Print(grid);
         }
